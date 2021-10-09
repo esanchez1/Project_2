@@ -124,6 +124,7 @@ function recursiveMedium(row, col) {
         recursiveMedium(row + 1, col);
         recursiveMedium(row, col + 1);
         recursiveMedium(row - 1, col);
+
     }
 }
 
@@ -185,11 +186,6 @@ function hoverOverId(id) {
 function mouseOutOfBox(id) {
     $("#" + id).css("border-color", "#ffffff00");
 }
-
-
-
-
-
 
 //if the mouse is clicked over a box in the targeting area, this function will take its id
 //and see if it is a valid locaiton to target
@@ -417,6 +413,8 @@ function fireRound(player) {
     console.log("Display Location: " + displayLocation);
     //Adjusts display and target array depending on hit or not
     if (turn == 1) {
+        checkShipSank();
+
         if (player2DisplayArray[getXCoordinate(target)][getYCoordinate(target)] == "Empty") {
             $("#" + displayLocation).css("background-color", "grey")
             $("#" + target).css("background-color", "grey")
@@ -434,9 +432,7 @@ function fireRound(player) {
         target = undefined;
         $("#player1Finish").prop("disabled", false);
         if (AIplaying == true) {
-            if (checkWin(1) == true) {
-                alert("Player 1 won!")
-            }
+
             //easy
             if (difficulty == 1) {
                 let tempx = getRandomX();
@@ -543,53 +539,14 @@ function fireRound(player) {
         }
         target = undefined;
         $("#player2Finish").prop("disabled", false);
-        /* } else {
-             if (difficulty == 1) {
-                 let tempx = getRandomX();
-                 let tempy = getRandomY();
-                 //let tempx = 2;
-                 //let tempy = 0;
-                 console.log(tempx);
-                 console.log(tempy);
-                 if (player1DisplayArray[tempx][tempy] == "Empty") {
-                     $("#" + displayLocation).css("background-color", "grey")
 
-                     $("#" + target).css("background-color", "grey")
-                     player1DisplayArray[tempx][tempy] = "Miss"
-                     player2TargetArray[tempx][tempy] = "Miss"
-                 } else {
-                     $("#" + displayLocation).css("background-color", "red")
-                     if (player1DisplayArray[tempx][tempy].includes("0")) {
-                         $("#" + player1DisplayArray[tempx][tempy]).css("background-color", "red")
-                     }
-                     $("#" + target).css("background-color", "red")
-                     player1DisplayArray[tempx][tempy] = "Hit"
-                     player2TargetArray[tempx][tempy] = "Hit"
-                 }
-
-             } else {
-                 let tempx = returnXCoordforAIhard();
-                 let tempy = returnYCoordforAIhard();
-                 $("#" + displayLocation).css("background-color", "red")
-                 if (player1DisplayArray[tempx][tempy].includes("0")) {
-                     $("#" + player1DisplayArray[tempx][tempy]).css("background-color", "red")
-                 }
-                 $("#" + target).css("background-color", "red")
-                 player1DisplayArray[tempx][tempy] = "Hit"
-                 player2TargetArray[tempx][tempy] = "Hit"
-
-             }
-
-         }
-         */
     }
     if (checkWin(player)) {
         //Handle win condition
         alert("PLAYER " + player + " WON!")
             //console.log(player + " won");
     }
-    checkShipSank()
-        //Switches turns after a successful fire
+    //Switches turns after a successful fire
     switch (turn) {
         case 1:
             turn = 2;
@@ -1367,4 +1324,3 @@ function checkShipSank() {
         }
     }
 }
-
