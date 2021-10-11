@@ -413,7 +413,7 @@ function fireRound(player) {
     console.log("Display Location: " + displayLocation);
     //Adjusts display and target array depending on hit or not
     if (turn == 1) {
-        checkShipSank();
+       // checkShipSank();
 
         if (player2DisplayArray[getXCoordinate(target)][getYCoordinate(target)] == "Empty") {
             $("#" + displayLocation).css("background-color", "grey")
@@ -610,6 +610,7 @@ function isShot(x, y) {
 }
 
 function checkWin(player) {
+    if(AIplaying == false) {
     let flag = true;
 
     if (player == 1) {
@@ -630,6 +631,8 @@ function checkWin(player) {
         }
     }
     return (flag);
+}
+return
 }
 
 $(document).ready(function() {
